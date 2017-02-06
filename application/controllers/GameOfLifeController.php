@@ -14,10 +14,11 @@ class GameoflifeController extends My_Base
 			parent::init();
 
 			$opts = array(
-        'width' => 20,
-        'height' => 10,
+        'width' => 40,
+        'height' => 20,
         'random' => false,
         'template' => '10cell'
+				//'template' => 'bouncer'
       );
 
 			$this->_game = new My_Game($opts);
