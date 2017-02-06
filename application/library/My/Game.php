@@ -1,15 +1,15 @@
 <?php
 
-class My_GameLogic {
+class My_Game {
 
   private $_opts = array();
   private $_grid = null;
 
   function __construct(array $opts) {
     $this->_setDefaults($opts);
-    this->_grid = new My_Grid($this->opts['width'], $this->opts['height']);
+    $this->_grid = new My_Grid($this->_opts['width'], $this->_opts['height']);
 
-    $this->grid->generateCells($this->opts['random'], $this->opts['rand_max']);
+    $this->_grid->generateCells($this->_opts['random'], $this->_opts['rand_max']);
     if (!empty($this->opts['template'])) {
       $this->setTemplate($this->opts['template']);
     }
@@ -42,10 +42,10 @@ class My_GameLogic {
      * 4. Any dead cell with exactly three live neighbours will come to life.
      */
     private function newGeneration() {
-      $cells = &$this->grid->cells;
+      $cells = &$this->_grid->cells;
       $kill_queue = $born_queue = [];
-      for ($y = 0; $y < $this->grid->getHeight(); $y++) {
-        for ($x = 0; $x < $this->grid->getWidth(); $x++) {
+      for ($y = 0; $y < $this->_grid->getHeight(); $y++) {
+        for ($x = 0; $x < $this->_grid->getWidth(); $x++) {
           // All cell activity is determined by the neighbor count.
           $neighbor_count = $this->getAliveNeighborCount($x, $y);
           if ($cells[$y][$x] && ($neighbor_count < 2 || $neighbor_count > 3)) {
@@ -76,7 +76,7 @@ class My_GameLogic {
     private function getAliveNeighborCount($x, $y) {
         $alive_count = 0;
         for ($y2 = $y - 1; $y2 <= $y + 1; $y2++) {
-          if ($y2 < 0 || $y2 >= $this->grid->getHeight()) {
+          if ($y2 < 0 || $y2 >= $this->_grid->getHeight()) {
             // Out of range.
             continue;
           }
@@ -85,11 +85,11 @@ class My_GameLogic {
               // Current cell spot.
               continue;
             }
-            if ($x2 < 0 || $x2 >= $this->grid->getWidth()) {
+            if ($x2 < 0 || $x2 >= $this->_grid->getWidth()) {
               // Out of range.
               continue;
             }
-            if ($this->grid->cells[$y2][$x2]) {
+            if ($this->_grid->cells[$y2][$x2]) {
               $alive_count += 1;
             }
           }
@@ -101,13 +101,13 @@ class My_GameLogic {
         $template = $name . '.txt';
         $path = 'templates/' . $template;
         $file = fopen($path, 'r');
-        $centerX = (int) floor($this->grid->getWidth() / 2) / 2;
-        $centerY = (int) floor($this->grid->getHeight() / 2) / 2;
+        $centerX = (int) floor($this->_grid->getWidth() / 2) / 2;
+        $centerY = (int) floor($this->_grid->getHeight() / 2) / 2;
         $x = $centerX;
         $y = $centerY;
         while ($c = fgetc($file)) {
           if ($c == 'O') {
-            $this->grid->cells[$y][$x] = 1;
+            $this->_grid->cells[$y][$x] = 1;
           }
           if ($c == "\n") {
             $y++;
@@ -133,5 +133,6 @@ class My_GameLogic {
         print "<br>";
       }
     }
+}
 
 ?>

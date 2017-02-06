@@ -7,7 +7,7 @@ class IndexController extends Zend_Controller_Action
     {
         $bootstrap = $this->getInvokeArg('bootstrap');
         //$db = $bootstrap->getResource('db');
-		
+
         $options = $bootstrap->getOption('resources');
         /*
 		$dbFile  = $options['db']['params']['dbname'];
@@ -15,6 +15,16 @@ class IndexController extends Zend_Controller_Action
             unlink($dbFile);
         }
 		*/
+
+      $opts = array(
+        'width' => 10,
+        'height' => 10,
+        'random' => true
+
+      );
+
+      $game = new My_Game($opts);
+
     }
 
 }

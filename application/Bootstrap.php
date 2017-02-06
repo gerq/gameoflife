@@ -14,7 +14,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
   }
 
 	protected function _initLoad(){
-		Zend_Loader::loadFile('phpFlickr.php', '/../lib/vendor/wikia/phpflickr');
+
 	}
 
 	protected function _initRestRoute()
@@ -22,7 +22,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$this->bootstrap('Request');
 		$front = $this->getResource('FrontController');
 		$restRoute = new Zend_Rest_Route($front, array(), array(
-			'default' => array('version', 'flickr-search', 'keyword')
+			'default' => array('version')
 		));
 		$front->getRouter()->addRoute('rest', $restRoute);
 	}
