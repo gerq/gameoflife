@@ -50,7 +50,16 @@ $( document ).ready(function() {
       clearTimeout(timer);
   };
 
-  $('#play').bind("click", start); // use .on in jQuery 1.7+
+  $('#play').bind("click", start);
   $('#stop').bind("click", stop);
+
+  $('#setwh').click(function() {
+
+    $.post( "/gameoflife", { w: $('#w').val(), h: $('#h').val() })
+      .done(function( data ) {
+        refresh('next');
+      });
+
+  });
 
 });

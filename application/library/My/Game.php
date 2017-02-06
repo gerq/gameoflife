@@ -108,7 +108,9 @@ class My_Game {
         $y = $centerY;
         while ($c = fgetc($file)) {
           if ($c == 'O') {
-            $this->_grid->cells[$y][$x] = 1;
+            if(isset($this->_grid->cells[$y][$x])) {
+              $this->_grid->cells[$y][$x] = 1;
+            }
           }
           if ($c == "\n") {
             $y++;
