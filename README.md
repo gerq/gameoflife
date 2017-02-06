@@ -1,1 +1,1 @@
-# gameoflife
+# gameoflife - Vida Gergely
