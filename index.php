@@ -8,9 +8,6 @@ defined('APPLICATION_PATH')
 defined('LIBRARY_PATH')
     || define('LIBRARY_PATH', realpath(dirname(__FILE__) . '/../lib/vendor/zendframework/zendframework1/library'));
 
-defined('PHPFLICKR_PATH')
-    || define('PHPFLICKR_PATH', realpath(dirname(__FILE__) . '/../lib/vendor/wikia/phpflickr'));
-
 // Define application environment, see in htaccess
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
@@ -22,7 +19,6 @@ defined('APPLICATION_ENV')
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/library'),
     realpath(LIBRARY_PATH),
-    realpath(PHPFLICKR_PATH),
     get_include_path(),
 )));
 
