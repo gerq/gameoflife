@@ -1,5 +1,6 @@
 <?php
 
+// Normal controller
 class IndexController extends Zend_Controller_Action
 {
 
@@ -16,14 +17,29 @@ class IndexController extends Zend_Controller_Action
         }
 		*/
 
+      // for debug
+      /*
+
       $opts = array(
-        'width' => 10,
+        'width' => 20,
         'height' => 10,
-        'random' => true
-
+        'random' => false,
+        'template' => '10cell'
       );
-
+      
       $game = new My_Game($opts);
+
+      $game->render();
+      $game->newGeneration();
+
+      $game->render();
+      $game->newGeneration();
+
+      $game->render();
+      $game->newGeneration();
+
+      $game->render();
+      */
 
     }
 

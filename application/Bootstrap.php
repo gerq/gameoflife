@@ -22,7 +22,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$this->bootstrap('Request');
 		$front = $this->getResource('FrontController');
 		$restRoute = new Zend_Rest_Route($front, array(), array(
-			'default' => array('version')
+			'default' => array('version','gameoflife')
 		));
 		$front->getRouter()->addRoute('rest', $restRoute);
 	}

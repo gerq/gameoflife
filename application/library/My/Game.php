@@ -10,8 +10,8 @@ class My_Game {
     $this->_grid = new My_Grid($this->_opts['width'], $this->_opts['height']);
 
     $this->_grid->generateCells($this->_opts['random'], $this->_opts['rand_max']);
-    if (!empty($this->opts['template'])) {
-      $this->setTemplate($this->opts['template']);
+    if (!empty($this->_opts['template'])) {
+      $this->setTemplate($this->_opts['template']);
     }
 
   }
@@ -22,7 +22,7 @@ class My_Game {
         'rand_max' => 5,
         'random' => TRUE,
         'cell' => 'O',
-        'empty' => '&nbsp;',
+        'empty' => '&#9632;',
       ];
       if (isset($opts['template']) && !isset($opts['random'])) {
         // Disable random when template is set.
@@ -41,7 +41,7 @@ class My_Game {
      * 3. Any live cell with two or three live neighbours lives, unchanged, to the next generation.
      * 4. Any dead cell with exactly three live neighbours will come to life.
      */
-    private function newGeneration() {
+    public function newGeneration() {
       $cells = &$this->_grid->cells;
       $kill_queue = $born_queue = [];
       for ($y = 0; $y < $this->_grid->getHeight(); $y++) {
@@ -99,10 +99,11 @@ class My_Game {
 
     public function setTemplate($name) {
         $template = $name . '.txt';
-        $path = 'templates/' . $template;
+        $path = APPLICATION_PATH . '/../templates/' . $template;
         $file = fopen($path, 'r');
         $centerX = (int) floor($this->_grid->getWidth() / 2) / 2;
         $centerY = (int) floor($this->_grid->getHeight() / 2) / 2;
+
         $x = $centerX;
         $y = $centerY;
         while ($c = fgetc($file)) {
@@ -121,9 +122,10 @@ class My_Game {
     }
 
     /**
-     * Renders the grid in the terminal window.
+     * Renders the grid
      */
-    private function render() {
+    public function render() {
+      print '<pre>';
       foreach ($this->_grid->cells as $y => $row) {
         foreach ($row as $x => $cell) {
           /** @var Cell $cell */
@@ -133,6 +135,18 @@ class My_Game {
         print "<br>";
       }
     }
+
+    /**
+     * Get the grid data for the API call
+     */
+    public function getTable() {
+      return $this->_grid->cells;
+    }
+
+    public function setTable(array $cells) {
+      $this->_grid->cells = $cells;
+    }
+
 }
 
 ?>
