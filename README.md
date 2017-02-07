@@ -16,11 +16,11 @@ Baállítása:
 
 /gameoflife/application/library/My/Game.php
 
-3. REST API (opcionális)
+# 3. REST API (opcionális)
 
 REST API hívásokkal működik a frontend
 
-4. Vizualizáció (Web, Mobil)
+# 4. Vizualizáció (Web, Mobil)
 
 a. weben, böngészőben jelenítem meg a generált táblákat
 
@@ -29,17 +29,17 @@ b. a frontend htmlt és jqueryt használ
 c. play, stop, és next gombokat lehet használni
 
 
-5. Szerkesztő
+# 5. Szerkesztő
 
 a. meg lehet adni a tábla méretét
 
 b. egy cellára kattintva lehet mintát rajzolni
 
-6. Minták beolvasása
+# 6. Minták beolvasása
 
 a. Sajnos lif fájlokat nem olvas be, sima txt-t kezel
 
 
-8. Minták választása felületen
+# 8. Minták választása felületen
 
 Ki lehet választani hogy melyik mintát szeretném használni
