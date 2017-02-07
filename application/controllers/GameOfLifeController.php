@@ -14,6 +14,7 @@ class GameoflifeController extends My_Base
 			parent::init();
 	}
 
+	// get table data by json
 	public function indexAction()
   {
 		$state = $this->_getParam('state', self::STATE_LAST);
@@ -57,6 +58,7 @@ class GameoflifeController extends My_Base
 		// die('xxx');
 	}
 
+	// get cache files path, now its unused
 	protected function _getCacheFile() {
 		return APPLICATION_PATH . '/../templates/cache/cache.txt';
 	}

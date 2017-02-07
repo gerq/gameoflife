@@ -16,6 +16,7 @@ class My_Game {
 
   }
 
+  // set default values
   private function _setDefaults(array $opts) {
       $defaults = [
         'template' => NULL,
@@ -97,6 +98,7 @@ class My_Game {
         return $alive_count;
     }
 
+    // set template from template dir without extension
     public function setTemplate($name) {
         $template = $name . '.txt';
         $path = APPLICATION_PATH . '/../templates/' . $template;
@@ -123,6 +125,7 @@ class My_Game {
         fclose($file);
     }
 
+    // draw to table
     public function addExtraPoints($points) {
       foreach ($points as $key => $p) {
         if(isset($this->_grid->cells[$p[0]][$p[1]])) {
@@ -153,6 +156,8 @@ class My_Game {
       return $this->_grid->cells;
     }
 
+    // set whole table
+    // TODO: send all points
     public function setTable(array $cells) {
       $this->_grid->cells = $cells;
     }

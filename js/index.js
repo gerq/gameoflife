@@ -1,12 +1,24 @@
 $( document ).ready(function() {
 
+  // iteration count
   var iter = 0;
+
+  // painted pixels
   var clickedPoints = {};
 
+  // refresh table
+  // state
+  //    last - get last state
+  //    next - get next state
+  // iteration - iteration number
+  // w - width
+  // h - height
   function refresh(state, iteration, w, h) {
 
     $( "#buffer" ).html('');
 
+    // API call for table, add all parameters, now its slow, basic solution by iteration
+    // TODO: store all points and send it to API
     $.getJSON( "/gameoflife?state=" + state + "&iteration=" + iteration + "&w=" + w + "&h=" + h + "&extra=" + JSON.stringify(clickedPoints) + "&template=" + $("#templates option:selected").val(), function( data ) {
       var htmlData = '';
       var pClass = '';
@@ -23,9 +35,11 @@ $( document ).ready(function() {
         htmlData += '</div>';
       }
 
+      // double buffer
       $('#buffer').html(htmlData);
       $('#table').html($('#buffer').html());
 
+      // draw it
       $('#table button').on('click', function() {
         $(this).toggleClass('dead').toggleClass('live');
         if($(this).hasClass('dead')) {
@@ -40,12 +54,15 @@ $( document ).ready(function() {
 
   }
 
+  // init table
   refresh('last', iter, $('#w').val(), $('#h').val());
 
+  // set next button
   $('#next').click(function() {
     refresh('next', ++iter, $('#w').val(), $('#h').val());
   });
 
+  // set the ticker for play button
   var timer = null;
   //var input = 1;
 
@@ -66,10 +83,12 @@ $( document ).ready(function() {
   $('#play').bind("click", start);
   $('#stop').bind("click", stop);
 
+  // set width, height
   $('#setwh').click(function() {
     refresh('next', ++iter, $('#w').val(), $('#h').val());
   });
 
+  // choose from templates
   $('#templates').change(function() {
     refresh('last', iter, $('#w').val(), $('#h').val());
   });

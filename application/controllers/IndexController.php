@@ -26,7 +26,7 @@ class IndexController extends Zend_Controller_Action
         'random' => false,
         'template' => '10cell'
       );
-      
+
       $game = new My_Game($opts);
 
       $game->render();

@@ -1,8 +1,10 @@
 <?php
 
+// base class for REST API
 class My_Base extends Zend_Rest_Controller
 {
 
+	// default status codes
 	const OK = 200;
 	const BAD_REQUEST = 400;
 	const NOT_FOUND = 404;
@@ -13,6 +15,7 @@ class My_Base extends Zend_Rest_Controller
 
 	protected $_bootstrap;
 
+	// defaut json answare
 	public function init()
   {
         $this->_bootstrap = $this->getInvokeArg('bootstrap');
