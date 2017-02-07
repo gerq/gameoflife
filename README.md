@@ -1,6 +1,6 @@
 # gameoflife - Vida Gergely
 
-1. Fejlesztői környezet kialakítása
+# 1. Fejlesztői környezet kialakítása
 
 Zendet használtam, külön lib könyvtárban helyezkedik el.
 
@@ -12,7 +12,7 @@ composer require zendframework/zendframework1
 Baállítása:
 /gameoflife/index.php - LIBRARY_PATH
 
-2. Üzleti logika
+# 2. Üzleti logika
 
 /gameoflife/application/library/My/Game.php
 
