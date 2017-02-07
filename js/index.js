@@ -1,10 +1,13 @@
 $( document ).ready(function() {
 
-  function refresh(state) {
+  var iter = 0;
+  var clickedPoints = {};
+
+  function refresh(state, iteration, w, h) {
 
     $( "#buffer" ).html('');
 
-    $.getJSON( "/gameoflife?state=" + state, function( data ) {
+    $.getJSON( "/gameoflife?state=" + state + "&iteration=" + iteration + "&w=" + w + "&h=" + h + "&extra=" + JSON.stringify(clickedPoints) + "&template=" + $("#templates option:selected").val(), function( data ) {
       var htmlData = '';
       var pClass = '';
       for(i=0; i<data['result'].length; i++) {
@@ -15,7 +18,7 @@ $( document ).ready(function() {
           } else {
             pClass = 'dead';
           }
-          htmlData += '<button class="pixel'+i+j+' '+ pClass +'"></button>';
+          htmlData += '<button class="pixel_'+i+'-'+j+' '+ pClass +'" data-key="'+i+''+j+'" data-i="'+i+'" data-j="'+j+'"></button>';
         }
         htmlData += '</div>';
       }
@@ -23,22 +26,32 @@ $( document ).ready(function() {
       $('#buffer').html(htmlData);
       $('#table').html($('#buffer').html());
 
+      $('#table button').on('click', function() {
+        $(this).toggleClass('dead').toggleClass('live');
+        if($(this).hasClass('dead')) {
+          delete clickedPoints[$(this).data('key')];
+        } else {
+          clickedPoints[$(this).data('key')] = [$(this).data('i'), $(this).data('j')];
+        }
+
+      });
+
     });
 
   }
 
-  refresh('last');
+  refresh('last', iter, $('#w').val(), $('#h').val());
 
   $('#next').click(function() {
-    refresh('next');
+    refresh('next', ++iter, $('#w').val(), $('#h').val());
   });
 
   var timer = null;
-  var input = 1;
+  //var input = 1;
 
   function tick() {
-      ++input.value;
-      refresh('next');
+      //++input.value;
+      refresh('next', ++iter, $('#w').val(), $('#h').val());
       start();
   };
 
@@ -54,12 +67,12 @@ $( document ).ready(function() {
   $('#stop').bind("click", stop);
 
   $('#setwh').click(function() {
-
-    $.post( "/gameoflife", { w: $('#w').val(), h: $('#h').val() })
-      .done(function( data ) {
-        refresh('next');
-      });
-
+    refresh('next', ++iter, $('#w').val(), $('#h').val());
   });
+
+  $('#templates').change(function() {
+    refresh('last', iter, $('#w').val(), $('#h').val());
+  });
+
 
 });

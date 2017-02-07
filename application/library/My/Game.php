@@ -123,6 +123,14 @@ class My_Game {
         fclose($file);
     }
 
+    public function addExtraPoints($points) {
+      foreach ($points as $key => $p) {
+        if(isset($this->_grid->cells[$p[0]][$p[1]])) {
+          $this->_grid->cells[$p[0]][$p[1]] = 1;
+        }
+      }
+    }
+
     /**
      * Renders the grid
      */
